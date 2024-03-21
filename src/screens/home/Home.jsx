@@ -8,13 +8,17 @@ import { productApi, useLazyProductDataByQueryQuery, useProductDtaQuery } from '
 import Header from '../../components/header/header';
 import SliderComponent from '../../components/slider/slider';
 import Navbar from '../../components/navbar/Navbar';
+import Loading from '../../components/Loading/loading';
+import Design from '../../components/Doors/Design';
+
 
 
 // import Banner from '../components/crousal/Banner/Banner';
 
 function Home() {
-    const {data}  = useProductDtaQuery()
- 
+    const {data,isLoading}  = useProductDtaQuery()
+console.log(isLoading,'isLoading')
+
 
   // const [productData, getResultProduct] = useLazyProductDataByQueryQuery();
   //  const search = useSelector((state)=>state.search)
@@ -30,24 +34,26 @@ function Home() {
       {/* <PrimarySearchAppBar/>
       <Example/>
       <CommonSliderComponent/> */}
-      <div     style={{overflowX:'hidden',width:"100%"}}>
+      {isLoading?<Loading/>:(  <div     style={{overflowX:'hidden',width:"100%"}}>
 
-     <div  style={{width:"100%"}}>
-     
-      <Header/>
-      <Navbar/>
-      </div> 
+<div  style={{width:"100%"}}>
 
-     <div  style={{width:"90%",marginLeft:"70px"}}>
-     <SliderComponent  title="TRENDING TODAY"  api={data}/>
+ <Header/>
+ <Navbar/>
+ </div> 
+ 
+
+<div  style={{width:"90%",marginLeft:"70px"}}>
+<SliderComponent  title="TRENDING TODAY"  api={data}/>
 
 <SliderComponent  title="PERSONAL CARE"  api={data}/>
 <SliderComponent  title="SKIN CARE"  api={data}/>
 <SliderComponent  title="HAIR CARE"  api={data}/>
 <SliderComponent  title="TEST STRIPS"  api={data}/>
-     </div>
-    
-      </div>
+</div>
+
+ </div>
+)}
     
 
 {/* <Design/> */}

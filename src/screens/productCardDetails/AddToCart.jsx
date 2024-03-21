@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { addProductToCart} from '../../redux/features/cartSlice'
-import { useAddMutation } from "../../services/apis/product";
+import { useAddMutation, useLazyGetCartQuery } from "../../services/apis/product";
 import {
   Card,
   Typography,
