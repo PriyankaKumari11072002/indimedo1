@@ -17,6 +17,7 @@ import ProductDetails from "./screens/product/productDetails";
 import ProductCard from "./ProductCard/ProductCard";
 import Home from "./screens/home/Home";
 import ProductCardDetails from "./screens/productCardDetails/productCardDetails";
+import Cart from "./screens/Cart/Cart";
 
 export default function App() {
   const [search, setSearch] = useState("");
@@ -79,7 +80,8 @@ export default function App() {
    <Route path='product/:id' element={<ProductDetails/>}/>  */}
 
   <Route path='/product' element={<ProductCard/>}/>
-   <Route path='product/:id' element={<ProductCardDetails/>}/> 
+   <Route path='/product/:id' element={<ProductCardDetails/>}/> 
+   <Route path='/cart' element={<Cart/>}/> 
 
  
    </Routes>

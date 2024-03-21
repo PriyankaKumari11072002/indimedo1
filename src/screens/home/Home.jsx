@@ -9,11 +9,12 @@ import Header from '../../components/header/header';
 import SliderComponent from '../../components/slider/slider';
 import Navbar from '../../components/navbar/Navbar';
 
+
 // import Banner from '../components/crousal/Banner/Banner';
 
 function Home() {
     const {data}  = useProductDtaQuery()
-   console.log(data,'data')
+ 
 
   // const [productData, getResultProduct] = useLazyProductDataByQueryQuery();
   //  const search = useSelector((state)=>state.search)
@@ -32,6 +33,7 @@ function Home() {
       <div     style={{overflowX:'hidden',width:"100%"}}>
 
      <div  style={{width:"100%"}}>
+     
       <Header/>
       <Navbar/>
       </div> 

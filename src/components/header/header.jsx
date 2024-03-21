@@ -1,8 +1,8 @@
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Box,Typography,Modal} from '@mui/material';
-import TextField from '@mui/material/TextField';
+import { Box,Typography,Modal, Badge} from '@mui/material';
+
 import { BiSolidOffer } from 'react-icons/bi';
 import { BsCart2 } from 'react-icons/bs';
 import { FaUser } from 'react-icons/fa';
@@ -10,13 +10,52 @@ import { useMemo } from 'react';
 import Signup from '../../screens/Signup/signup.jsx/Signup';
 import Login from '../../screens/login/login';
 import LoginOtpVerify from '../../screens/login/LoginOtpVerify';
+
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import {  useLazyGetCartQuery } from '../../services/apis/product';
+import { useDispatch, useSelector } from 'react-redux';
+import { addProductToCart } from '../../redux/features/cartSlice';
 const Header = () => {
+    const dispatch = useDispatch()
     const [open, setOpen] = useState(false);
+    const {count} = useSelector((state)=>state.cart) //getting product from cart
+    // console.log(cart,'cart')
     const [loginPage, setloginPage] = useState(false);
     const [verifyPage, setverifyPage] = useState(false);
     const [singup, setSingUp] = useState(false);
-    const memorizeLoginPage = useMemo(() => {
+    
+    const [getcartData,{data,isLoading,isError}] = useLazyGetCartQuery()//lazy,mutation
+    
+    // const cartLength = data?.products.length
 
+    //adding product to cart
+    
+   useEffect(()=>{
+      getcartData().then((data)=>dispatch(addProductToCart(data?.data?.products)))
+   },[])
+
+
+    // const cartLength = data?.products.length
+
+    //adding product to cart
+
+   useEffect(()=>{
+      getcartData().then((data)=>dispatch(addProductToCart(data?.data?.products)))
+   },[])
+
+
+
+
+    // useEffect(()=>{
+    //  if(data?.products?.length>0){
+    //     dispatch(addProductToCart(data?.products))
+    //  }
+    // },[isLoading])
+
+
+    const memorizeLoginPage = useMemo(() => {
       setloginPage(true);
     }, [verifyPage, loginPage]);
 
@@ -34,6 +73,14 @@ const Header = () => {
         p: 4,
       };
 
+      const StyledBadge = styled(Badge)(({ theme }) => ({
+        '& .MuiBadge-badge': {
+          right: -3,
+          top: 13,
+          border: `2px solid ${theme.palette.background.paper}`,
+          padding: '0 4px',
+        },
+      }));
 
     return (
         <div className="flex justify-between items-center bg-white text-black border-b p-3 shadow transition duration-300 ease-in h-20  "
@@ -54,8 +101,15 @@ const Header = () => {
                     Offers
                 </Link>
                 <button  className="text-black font-semibold flex  justify-around items-center g-3">
-                    <BsCart2 className="" />
-                    Carts
+                    <Link  to="/cart">
+                    <IconButton aria-label="cart">
+      <StyledBadge badgeContent={count} color="secondary">
+        <ShoppingCartIcon />
+      </StyledBadge>
+    </IconButton>    
+
+                    </Link>
+                   
                 </button>
                 <Link to="/upload-prescription" className="text-black font-semibold">
                     Upload
