@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 // import { logoutHandler } from 'utils/common';
 
+
 const baseQuery = fetchBaseQuery({
   baseUrl: "https://indimedo.onrender.com/",
 

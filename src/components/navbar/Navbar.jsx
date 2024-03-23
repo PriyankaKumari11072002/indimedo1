@@ -8,7 +8,7 @@ import AccountCircle from "@mui/icons-material/AccountCircle";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import Divider from "@mui/material/Divider";
-import SearchBar from "../search/Search";
+
 import { Button } from "@mui/material";
 import LoginModal from "../../screens/login/login";
 import {useState,useCallback} from 'react'

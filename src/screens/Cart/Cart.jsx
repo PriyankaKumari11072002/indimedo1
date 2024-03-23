@@ -3,28 +3,18 @@ import React, { useEffect, useState } from 'react'
 import { calculateDiscountPercentage } from '../../ProductCard/ProductCard'
 import { MenuItem, Select } from '@mui/material'
 import { useSelector,useDispatch } from 'react-redux'
-import { useLazyGetCartQuery } from '../../services/apis/product'
+import { useAddMutation, useCartUpdateMutation, useLazyGetCartQuery } from '../../services/apis/product'
 import { addProductToCart } from '../../redux/features/cartSlice'
 import Header from '../../components/header/header'
 
 
  function Cart() {
-    // const {data} = useGetCartQuery()
     const {cart} = useSelector((state)=>state.cart) //geting product data from store
-  
-
-   const [quantity,setQuantity] = useState(1)  
-   
-
-// useEffect(() => {
-//   // Fetch cart data on component mount
-//   dispatch(addProductToCart(data?.products));
-// }, []); // Empty dependency array ensures that this effect runs only once, on mount
-
-// console.log(cart, 'cart1');
-
-const handleRemove = (deleteId)=>{
-    console.log(deleteId,'deleteId')
+    // console.log(cart[0].product._id,'cart')
+   const [quantity,setQuantity] = useState(1) 
+  const [updateCart,response] = useCartUpdateMutation()
+   const handleRemove = (deleteId)=>{
+ 
 
 }
 // const handleItemsQuantity = (quantity)=>{
@@ -35,21 +25,23 @@ const handleRemove = (deleteId)=>{
 
 // }
 const handleItemsQuantity  = async (product) => {
-// console.log(product.count,'product')
+  // console.log(product,'add to cart logic')
+ //console.log(product.count+1,'product')
+ 
   //setproductIncriment(true)
   //setviewCartOpen(true)
   // dispatch(addProductToCart({cart:product,count:1}))
 
   // try {
-  //   await addToCart({
-  //     cart: [
+  //   await addToCart(
+     
   //       {
   //         _id: product._id,
-  //         count: quantity,
+  //         count:product.count+1,
   //       },
-  //     ],
-  //   }).then((item) =>
-  //     getcartData().then((data) =>  //updating cart data when user add or increase product data
+    
+  //   ).then((item) =>
+  //     getcartData().then((data) =>  
   //       dispatch(addProductToCart(data?.data?.products))
   //     )
   //   );
@@ -58,10 +50,30 @@ const handleItemsQuantity  = async (product) => {
   // } finally {
   // }
 };
+const handleUpdateToCart = async (product) => {
+  console.log(product.product_id,'add to cart logic')
+  //setproductIncriment(true)
+  //setviewCartOpen(true)
+  // dispatch(addProductToCart({cart:product,count:1}))
+
+  try {
+    await updateCart({
+     
+      
+      productId: product.product_id,
+          count: product.count+1,
+     }
+    )
+  } catch (error) {
+    console.error("Error adding item to cart:", error);
+  } finally {
+  }
+  
+};
 
   return (
         <div>
-          <Header/>
+ 
 <div className="mx-auto max-w-7xl px-2 lg:px-0">
       <div className="mx-auto max-w-2xl py-8 lg:max-w-7xl">
     
@@ -124,7 +136,7 @@ items.product.reagular_price           ,       items.product.sale_price
                   </li>
                   <div className="mb-2 flex">
                     <div className="min-w-24 flex">
-                      <button type="button" className="h-7 w-7">
+                      <button type="button" className="h-7 w-7"  onClick={()=>handleItemsQuantity(items)}>
                         -
                       </button>
                       <input
@@ -132,12 +144,32 @@ items.product.reagular_price           ,       items.product.sale_price
                         className="mx-1 h-7 w-9 rounded-md border text-center"
                         defaultValue={items.count}
                       />
-                      <button type="button" onClick={()=>handleItemsQuantity(items.count+1)}  className="flex h-7 w-7 items-center justify-center">
+                      <button type="button" onClick={()=>handleItemsQuantity(items)}  className="flex h-7 w-7 items-center justify-center">
                         +
                       </button>
-                 
+                      <button type="button" onClick={()=>handleUpdateToCart(items)}  className="flex h-7 w-7 items-center justify-center">
+                       Add
+                      </button>
                     </div>
-                
+
+               {/* <div>
+         
+
+               <button
+              onClick={() => handleItemsQuantity (items)}
+              className="bg-[#008000]  font-sans  font-light  p-3 mt-12 text-BLACK "
+              style={{
+                width: "100%",
+                marginTop: "50PX",
+                textAlign: "center",
+                borderRadius: "10px",
+              }}
+            >
+              ADD TO CART
+            </button>  
+
+
+                </div>  */}
                     <div className="ml-6 flex text-sm">
                       <button type="button" className="flex items-center space-x-1 px-2 py-1 pl-0">
                         <Trash size={12} className="text-red-500"  />
@@ -149,6 +181,7 @@ items.product.reagular_price           ,       items.product.sale_price
               ))}
             </ul>
           </section>
+
 
          <section
             aria-labelledby="summary-heading"

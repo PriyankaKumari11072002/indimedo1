@@ -84,35 +84,30 @@ import Design from '../../components/Doors/Design';
 
 function Home() {
     const {data,isLoading}  = useProductDtaQuery()
-console.log(isLoading,'isLoading')
+
+    if (isLoading) {
+      return <div>Loading...</div>;
+    }
+
+    const object = data.filter((items)=>items.title.toLowerCase().includes("nature's island"))                       
+    // console.log(object[0].tags ,'object ')
 
 
-  // const [productData, getResultProduct] = useLazyProductDataByQueryQuery();
-  //  const search = useSelector((state)=>state.search)
-
-  //  console.log(search,getResultProduct,"homePage")
-  
-  //  useEffect(()=>{
-  //   productData(search?.searchTerm);
-  //  },[search?.searchTerm])
 
   return (
  <>
-      {/* <PrimarySearchAppBar/>
-      <Example/>
-      <CommonSliderComponent/> */}
-       {/* style={{overflowX:'hidden',width:"100%"}} */}
+   
       {isLoading?<Loading/>:(  <div >
 
 
 
 
-<SliderComponent  title="TRENDING TODAY"  api={data}/>
+<SliderComponent  title="TRENDING TODAY"  api={data}  style={{border:"4px solid green"}} />
 
 <SliderComponent  title="PERSONAL CARE"  api={data}/>
 <SliderComponent  title="SKIN CARE"  api={data}/>
 <SliderComponent  title="HAIR CARE"  api={data}/>
-<SliderComponent  title="TEST STRIPS"  api={data}/>
+<SliderComponent  title="TEST STRIPS"  api={data} /> 
 </div>
 )}
     

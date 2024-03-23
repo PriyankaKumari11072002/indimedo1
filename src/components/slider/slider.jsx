@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import ProductCard from "../../ProductCard/ProductCard";
 
-export default function SliderComponent({ title, api }) {
+export default function SliderComponent({ title, api,style }) {
 
  const settings = {
     dots: false,
@@ -60,7 +60,7 @@ export default function SliderComponent({ title, api }) {
       <style>{slickPrevNextStyles}</style>
 
       <h1>{title}</h1>
-      <Slider {...settings} className="flex-wrap">
+      <Slider {...settings} className="flex-wrap"  >
         {api?.map((apiItem) => (
           <ProductCard key={apiItem._id} product={apiItem} />
         ))}

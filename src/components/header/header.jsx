@@ -17,6 +17,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import {  useLazyGetCartQuery } from '../../services/apis/product';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../../redux/features/cartSlice';
+
 const Header = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false);
@@ -94,6 +95,7 @@ const Header = () => {
                         style={{ width: "100px" ,height:"100px" ,padding:"20px"}}
                     />
                 </Link>
+        
             </div>
             <div className="flex justify-around items-center gap-4 mr-4">
                 <Link to="/special-offers" className="text-black font-semibold  flex  justify-around items-center g-3">

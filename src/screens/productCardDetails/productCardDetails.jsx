@@ -31,8 +31,7 @@ const ProductCardDetails = () => {
 
   return (
     <>
-    <Header/>
-    <Navbar/>
+
 
       <div
         className="flex justify-between align-middle   mt-10"

@@ -1,6 +1,7 @@
 // import React, { Suspense, useEffect, useState } from "react";
 // import {
 //   useLazyProductDataByQueryQuery,
+//   useLazyProductSearchByQueryQuery,
 //   useProductDtaQuery,
 // } from "./services/apis/product";
 // import {
@@ -21,6 +22,7 @@
 // import Cart1 from "./screens/Cart/cart1";
 // import Loading from "./components/Loading/loading";
 // import Design from "./components/Doors/Design";
+// import Search1 from "./components/search/search1";
 
 // export default function App() {
 //   const [search, setSearch] = useState("");
@@ -29,9 +31,9 @@
 //   const [userRegistration, userRegistrationResponse] =
 //     useUserRegistrationMutation();
 //   const [login, userLoginResponse] = useUserLoginMutation();
-//   const [productData, getResultProduct] = useLazyProductDataByQueryQuery();
+//   const [searchProduct,response] = useLazyProductSearchByQueryQuery()
 
-//   // useEffect(() => {
+//   //useEffect(() => {
 //   //   const data = {
 //   //     firstName: "priyanka",
 //   //     lastName: "kumari",
@@ -53,30 +55,37 @@
 //   //   })
 //   // }, []);
 
-//   // useEffect(() => {
-//   //   productData(search);
-//   // }, [search]);
+//   useEffect(() => {
+//     if(search.trim()!==""){
+//       searchProduct(search);
+//     }
+   
+//   }, [search]);
 
-//   // const handleSearch = debounce((e) => {
-//   //   setSearch(e.target.value);
-//   // }, 500);
+//   const handleSearch = debounce((e) => {
+    
+//     setSearch(e.target.value);
+//   }, 900);
 
 
 //   // console.log(getResultProduct,"getResultProduct")
 
 //   return (
+
+//     // <Search1/>
 //     <React.Fragment>
-//       {/* <h1 className="text-3xl font-bold underline">Hello world!</h1>
+//       <h1 className="text-3xl font-bold underline">Hello world!</h1>
 //       <input
 //         type="text"
 //         className="rounded border px-4 my-3"
 //         onChange={handleSearch}
 //         placeholder="Search Product"
-//       ></input> */}
+//       ></input>
 //       <BrowserRouter>
+//       <Search1/>
 //       {/* <Design/> */}
 //    {/* <Loading/>  */}
-//    <Suspense fallback={<Loading />}>
+//    {/* <Suspense fallback={<Loading />}> */}
 //    <Routes>
 //    <Route path="/" element={<Home/>}/>
 // {/* 
@@ -90,47 +99,29 @@
 
  
 //    </Routes>
-//    <Suspense/>
+//    {/* <Suspense/> */}
 //    </BrowserRouter>
 
 //     </React.Fragment>
 //   );
 // }
+
+
 import React, { Suspense, useEffect, useState } from "react";
-import {
-  useLazyProductDataByQueryQuery,
-  useProductDtaQuery,
-} from "./services/apis/product";
-import {
-  useUserLoginMutation,
-  useUserRegistrationMutation,
-} from "./services/apis/user";
-import { useDispatch } from "react-redux";
-import debounce from "lodash.debounce";
-import { setCredentials } from "./redux/features/authSlice";
+
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import PrimarySearchAppBar from "./components/navbar/Navbar";
+
 import Loading from "./components/Loading/loading";
 import Header from "./components/header/header";
 import Navbar from "./components/navbar/Navbar";
-
-// Import components lazily
-const ProductPage = React.lazy(() => import("./screens/product/product"));
-const ProductDetails = React.lazy(() => import("./screens/product/productDetails"));
+import Search from "./components/search/search";
 const ProductCard = React.lazy(() => import("./ProductCard/ProductCard"));
 const Home = React.lazy(() => import("./screens/home/Home"));
 const ProductCardDetails = React.lazy(() => import("./screens/productCardDetails/productCardDetails"));
-const Cart1 = React.lazy(() => import("./screens/Cart/cart1"));
+const Cart = React.lazy(() => import("./screens/Cart/Cart"));
 
 export default function App() {
-  // const [search, setSearch] = useState("");
-  // const dispatch = useDispatch();
-  // const { data, error, isLoading } = useProductDtaQuery();
-  // const [userRegistration, userRegistrationResponse] =
-  //   useUserRegistrationMutation();
-  // const [login, userLoginResponse] = useUserLoginMutation();
-  // const [productData, getResultProduct] = useLazyProductDataByQueryQuery();
-
+ 
   return (
     <React.Fragment>
       <BrowserRouter>
@@ -138,6 +129,7 @@ export default function App() {
       <div style={{ width: '100%' }}>
         <Header />
         <Navbar/>
+        <Search/>
         </div>
     
     
@@ -147,7 +139,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/product" element={<ProductCard />} />
             <Route path="/product/:id" element={<ProductCardDetails />} />
-            <Route path="/cart" element={<Cart1 />} />
+            <Route path="/cart" element={<Cart />} />
           </Routes>
         </Suspense>
       

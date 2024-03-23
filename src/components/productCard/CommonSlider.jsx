@@ -8,7 +8,7 @@ import { useProduct } from "../../hooks/product";
 
  function CommonSlider(props) {
 const {product} = useProduct()
-console.log(product,'product')
+console.log(product,'productapi')
   
   return (
     <Carousel   navButtonsAlwaysVisible={true}  timeout={10}  animation="fade"  style={{height:'200px !important'}}

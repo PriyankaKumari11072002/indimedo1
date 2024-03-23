@@ -1,70 +1,61 @@
+
 import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import { styled, alpha } from "@mui/material/styles";
-import InputBase from "@mui/material/InputBase";
-import { useDispatch } from "react-redux";
-import { setSearchTerm } from "../../redux/features/searchSlice";
+import {
+  useLazyProductSearchByQueryQuery,
+  useProductDtaQuery,
+} from "../../services/apis/product";
+import { useEffect, useState } from "react";
 import debounce from "lodash.debounce";
+import { Link, useNavigate } from "react-router-dom";
 
-const Search = styled("div")(({ theme }) => ({
-  position: "relative",
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  "&:hover": {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginRight: theme.spacing(2),
-  marginLeft: 0,
-  width: "100%",
-  [theme.breakpoints.up("sm")]: {
-    marginLeft: theme.spacing(3),
-    width: "auto",
-  },
-}));
-
-const SearchIconWrapper = styled("div")(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: "100%",
-  position: "absolute",
-  pointerEvents: "none",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-}));
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: "inherit",
-  "& .MuiInputBase-input": {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("md")]: {
-      width: "80ch",
-    },
-  },
-}));
-
-function SearchBar() {
-  const dispatch = useDispatch();
-
-  const handleSearch = debounce((e) => {
-    dispatch(setSearchTerm( e.target.value ));
-  }, 500);
+const Search = () => {
+  const [search, setSearch] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [queryRelatedMoreOftion, setqueryRelatedMoreOftion] = useState(null);
+  const [searchProduct, { isError }] = useLazyProductSearchByQueryQuery();
+ const navigate = useNavigate()
   
-  return (
-    <Search>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ "aria-label": "search" }}
-        onChange={handleSearch}
-      />
-    </Search>
-  );
-}
+  useEffect(() => {
+    if (searchTerm.trim() !== "") {
+      searchProduct(searchTerm).then((queryRelatedMoreOftion1) =>
+        setqueryRelatedMoreOftion(queryRelatedMoreOftion1.data)
+      );
+    }
+  }, [searchTerm]);
 
-export default SearchBar;
+  console.log(queryRelatedMoreOftion, "queryRelatedMoreOftion74567");
+
+  const handleChange = debounce((e) => {
+    setSearchTerm(e.target.value);
+  }, 600);
+
+  console.log(searchTerm, "search");
+const handleClick=(id)=>{
+   navigate(`/product/${id}`)
+   
+   setSearchTerm('')
+}
+  return (
+    <div>
+      <input
+        type="text"
+     
+        className="rounded border px-4 my-3"
+        onChange={handleChange}
+        placeholder="Search Product"
+     />
+      {queryRelatedMoreOftion?.length > 0 &&
+        searchTerm.length > 0 &&
+        queryRelatedMoreOftion?.map((item) => (
+          <div onClick={()=>handleClick(item?._id)}>
+            <div>
+             {item?.title}
+            </div>
+          </div>
+        ))}
+      {isError && searchTerm?.length > 0 && <p>No Data Found</p>}
+    </div>
+  );
+};
+
+export default Search;

@@ -14,6 +14,7 @@ import {
 import { calculateDiscountPercentage } from "../../ProductCard/ProductCard";
 import VeiwCardItems from "./veiwCardItems";
 import { addProductToCart } from "../../redux/features/cartSlice";
+import SelectItems from "../../components/Common/Select";
 
 const AddToCart = ({ data }) => {
   const [isTitleExpanded, setIsTitleExpanded] = useState(false);
@@ -41,12 +42,12 @@ const AddToCart = ({ data }) => {
 
     try {
       await addToCart({
-        cart: [
-          {
-            _id: product._id,
+       
+        
+        productId: product._id,
             count: quantity,
-          },
-        ],
+      
+       
       }).then((item) =>
         getcartData().then((data) =>  //updating cart data when user add or increase product data
           dispatch(addProductToCart(data?.data?.products))
@@ -56,6 +57,7 @@ const AddToCart = ({ data }) => {
       console.error("Error adding item to cart:", error);
     } finally {
     }
+    
   };
 
   function handleDecriment() {
@@ -110,17 +112,13 @@ const AddToCart = ({ data }) => {
                 </span>
               </h6>
             </Typography>
-            <Select
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-              style={{ marginBottom: "5px", width: "50%" }}
-            >
-              {[...Array(10).keys()].map((num) => (
-                <MenuItem key={num + 1} value={num + 1}>
-                  {num + 1}
-                </MenuItem>
-              ))}
-            </Select>
+
+ <SelectItems
+        value={quantity}
+        onChange={(e) => setQuantity(e.target.value)}
+        style={{ marginBottom: "5px", width: "50%" }}
+      />
+
             <button
               onClick={() => handleAddToCart(data)}
               className="bg-[#008000]  font-sans  font-light  p-3 mt-12 text-BLACK "
