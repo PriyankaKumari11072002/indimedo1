@@ -3,12 +3,13 @@ import { Trash } from 'lucide-react';
 import { useSelector } from 'react-redux';
 import Header from '../../components/header/header';
 import { calculateDiscountPercentage } from '../../ProductCard/ProductCard';
+import { useMemo } from 'react';
 
 function Cart1() {
   const { cart } = useSelector((state) => state.cart);
   const [quantities, setQuantities] = useState({});
 
-  console.log(quantities,'quantities')
+
 
   // Populating quantities state with initial values received from the backend
   useEffect(() => {
@@ -22,12 +23,17 @@ function Cart1() {
   }, [cart]);
 
 
-  const handleRemove = (deleteId) => {
+  const handleRemove = useMemo((deleteId) => {
+    console.log(deleteId,'unwanted fun call')
    // console.log(deleteId, 'deleteId');
     // Add logic to remove item from the cart
-  };
+  },[cart]);
 
+
+ //handleRemove()
   const handleDecrement = (productId) => {
+
+
     if (quantities[productId] > 1) {         //4>1
       setQuantities((prevQuantities) => ({  ////{34234:4,5435:5,4535:6,5646:6}
         ...prevQuantities,
@@ -109,7 +115,7 @@ function Cart1() {
                       <div className="ml-6 flex text-sm">
                         <button type="button" className="flex items-center space-x-1 px-2 py-1 pl-0">
                           <Trash size={12} className="text-red-500" />
-                          <span className="text-xs font-medium text-red-500" onClick={() => handleRemove(items.product._id)}>Remove</span>
+                          <span className="text-xs font-medium text-red-500" onClick={() => handleRemove(items.product._id)} >Remove</span>
                         </button>
                       </div>
                     </div>

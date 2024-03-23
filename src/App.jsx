@@ -134,9 +134,15 @@ export default function App() {
   return (
     <React.Fragment>
       <BrowserRouter>
-      {/* <Header/> */}
- {/* <Navbar/> */}
-        <Suspense fallback={<Loading />}>
+      <div style={{ width: '100%', overflow: 'hidden' }}>
+      <div style={{ width: '100%' }}>
+        <Header />
+        <Navbar/>
+        </div>
+    
+    
+      <div style={{ width: '87%', margin: '0 auto' }}>
+      <Suspense fallback={<Loading />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/product" element={<ProductCard />} />
@@ -144,6 +150,11 @@ export default function App() {
             <Route path="/cart" element={<Cart1 />} />
           </Routes>
         </Suspense>
+      
+       </div>
+       </div>
+
+       
       </BrowserRouter>
     </React.Fragment>
   );
