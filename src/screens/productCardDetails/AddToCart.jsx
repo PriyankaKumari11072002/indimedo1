@@ -17,7 +17,6 @@ import { addProductToCart } from "../../redux/features/cartSlice";
 import SelectItems from "../../components/Common/Select";
 
 const AddToCart = ({ data }) => {
-  const [isTitleExpanded, setIsTitleExpanded] = useState(false);
   const [cardData, setcardData] = useState();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart);
@@ -31,6 +30,8 @@ const AddToCart = ({ data }) => {
   // const cartLength = data?.products.length
 
   //  console.log(response,'res')
+  const [isTitleExpanded, setIsTitleExpanded] = useState(false);
+
   const toggleTitleExpansion = () => {
     setIsTitleExpanded(!isTitleExpanded);
   };

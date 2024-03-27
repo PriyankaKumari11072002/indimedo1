@@ -115,11 +115,15 @@ import Loading from "./components/Loading/loading";
 import Header from "./components/header/header";
 import Navbar from "./components/navbar/Navbar";
 import Search from "./components/search/search";
+
+
 const ProductCard = React.lazy(() => import("./ProductCard/ProductCard"));
 const Home = React.lazy(() => import("./screens/home/Home"));
+const SearchResults = React.lazy(() => import("./components/search/searchResults"));
 const ProductCardDetails = React.lazy(() => import("./screens/productCardDetails/productCardDetails"));
 const Cart = React.lazy(() => import("./screens/Cart/Cart"));
 
+// const Cart1 = React.lazy(() => import("./screens/Cart/cart1"));
 export default function App() {
  
   return (
@@ -136,10 +140,11 @@ export default function App() {
       <div style={{ width: '87%', margin: '0 auto' }}>
       <Suspense fallback={<Loading />}>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home/>} />
             <Route path="/product" element={<ProductCard />} />
             <Route path="/product/:id" element={<ProductCardDetails />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/search-results" element={<SearchResults />} />
           </Routes>
         </Suspense>
       

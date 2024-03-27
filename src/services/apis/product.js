@@ -2,7 +2,7 @@ import { PRODUCT } from "../../utils/apiRoutes/product";
 import { apiSlice } from "./apiSlice";
 
 const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZmMwNTRjZWJiYjMxZTI0Yzk5OTcwZiIsImlhdCI6MTcxMTE5MDM0NywiZXhwIjoxNzExMjc2NzQ3fQ.1rCHPwYLYRhcJvuPhfhM1j5mtvMdZ8I_AbTpNmDftII";
+"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1ZjNlZTUwNmVmMmIwNmRkYTE4M2UwMyIsImlhdCI6MTcxMTUyODY1NSwiZXhwIjoxNzExNjE1MDU1fQ.rm1UbzVrEZDuKPJC9SkVmQbP837YouIGFb3sL7JPhP8";
 
 export const productApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -71,14 +71,18 @@ export const productApi = apiSlice.injectEndpoints({
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
-    cartDelete: builder.mutation({
-      query: () => ({
-        url: `user/cartdelete`,
-        method: "DELETE",
 
+    cartRemove: builder.mutation({
+      query: (deleteId) => ({
+        url: `user/cart/remove`,
+        method: "DELETE",
+        body: deleteId,
         headers: { Authorization: `Bearer ${token}` },
       }),
     }),
+
+    
+    
     // add: builder.mutation({
     // 	query: (cartData) => ({
     // 		headers: {
@@ -100,7 +104,7 @@ export const {
   useLazyProductDataByQueryQuery,
   useAddMutation,
   useGetCartQuery,
-  useCartDeleteMutation,
+useCartRemoveMutation,
   useLazyGetCartQuery,
   useLazyProductSearchByQueryQuery,
   useCartUpdateMutation
