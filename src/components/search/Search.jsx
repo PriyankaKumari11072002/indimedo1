@@ -12,7 +12,8 @@ import {Search} from '@mui/icons-material'
 const Search1 = () => {
 
   const [suggestionTitleId, setsuggestionTitleId] = useState("");
-
+  const [inputClick, setInputClick] = useState(false);
+  const [showSearchMessage, setShowSearchMessage] = useState(false);
   const [queryRelatedMoreOption, setQueryRelatedMoreOption] = useState([]);
   const [searchProduct, { isError }] = useLazyProductSearchByQueryQuery();
   
@@ -25,31 +26,36 @@ const searchTermSelector = useSelector((state)=>state.search.searchTerm1)
     if (searchTermSelector.trim() !== "") {
       searchProduct(searchTermSelector).then((response) => {
         setQueryRelatedMoreOption(response.data || []);
+        setShowSearchMessage(true)
         //dispatch(setQueryResults(response.data || []))
       });
     } else {
- 
+      setShowSearchMessage(false)
       setQueryRelatedMoreOption([]);
     }
   }, [searchTermSelector]);
 
   const handleChange = (e) => {
-   
+    setShowSearchMessage(true)
+    setInputClick(true)
     dispatch(setSearchTerm1(e.target.value))
   };
 
   const handleSubmit= () => {
-if(searchTermSelector.trim() !== ""&& isError===false){ 
-  // navigate(`/search/${searchId}`)           //false===false query was not found
+    setInputClick(false)
+  
+if(searchTermSelector.trim() !== ""){ 
+  // navigate(`/search/${searchId}`)           //false===false query was not found  && isError===false
   navigate(`/search-results/${searchTermSelector}`);
   dispatch(setSearchTerm1(""))
-
+  showSearchMessage(false)
 }
   
 
   };
 
   const handleClick = (item) => {  
+   
   setsuggestionTitleId(item.title)
 
    navigate(`/product/${item._id}`);
@@ -62,15 +68,24 @@ if(searchTermSelector.trim() !== ""&& isError===false){
   };
 
   const handleKeyPress = (e) => {
+   
 if(e.key==='Enter'){
+  setInputClick(false)
+
   handleSubmit()
+  showSearchMessage(false)
 }
   }
-
+console.log(showSearchMessage,'showmESS')
   return (
     <>
-  
-  
+    {/* <Paper component="form"   style={{width:'500px',display:'flex',justifyContent:'space-between'}} onSubmit={handleSubmit}  sx={{borderRadius:20,border:"1px solid #e3e3e3",pl:2,boxShadow:"none",mr:{sm:5} }}>
+  <input type="text" 
+  style={{border:"none",outline:"none"}}
+  onChange={handleChange} placeholder='...find here anything' value={searchTermSelector} className='search-bar'/>
+  <IconButton type='submit' sx={{color:"red"}}><Search/></IconButton>
+</Paper>
+   */}
 
     <div className="search-container"  style={{height:'100%'}}>
  
@@ -80,16 +95,22 @@ if(e.key==='Enter'){
         value={suggestionTitleId?suggestionTitleId:searchTermSelector}
         onChange={handleChange}
         placeholder="Search Product"
-        className="search-input  "
+      className={inputClick?'change-search-input':'search-input'}
        onKeyPress={handleKeyPress}
      
       />
-       <button onClick={handleSubmit} className="search-button"><IoSearchOutline /></button>
+       <button onClick={handleSubmit} className={inputClick?'change-search-button':'search-button'}><IoSearchOutline /></button>
       </div>
-      <div className="suggestions">
+
+      <div className={inputClick?'change-suggestion':'suggestion'}>
+      {showSearchMessage&&!isError?(<h1>Showing results for <span  className="text-green-600"> {searchTermSelector}</span>  </h1>) :""}
+
         {queryRelatedMoreOption.map((item) => (
+          
         <>
+
           <div key={item._id} className="suggestion" onClick={() => handleClick(item)}>
+            
               <h1>{item.title}</h1>
               </div>
             {/* {item.tags.map((tags)=>(
@@ -99,8 +120,9 @@ if(e.key==='Enter'){
             ))} */}
           </>
         ))}
-        {isError && searchTermSelector.length > 0 && <p className="no-data">No Data Found</p>}
-      </div>
+        {isError && searchTermSelector.length > 0 && <p className="no-data">No Data Found for<span  className="text-green-600"> {searchTermSelector}</span>  
+       </p>}
+    </div>
     </div>
     
   

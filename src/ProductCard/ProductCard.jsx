@@ -1,14 +1,6 @@
 
-import {
-  Button,
-  Paper,
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  CardActions,
-} from "@mui/material";
-import { useState } from "react";
+
+
 import { Link } from "react-router-dom";
 export function calculateDiscountPercentage(regularPrice, salePrice) {
   const discount = ((regularPrice - salePrice) / regularPrice) * 100;
