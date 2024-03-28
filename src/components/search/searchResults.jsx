@@ -25,7 +25,7 @@ export default function SearchResults() {
 
   return (
     <>
-      <div className="bg-white">
+      <div className="bg-white  mb-6">
         <div className="mx-auto max-w-2xl px-4 lg:max-w-[100%] lg:px-8  ">
           <h1 className="text-center  p-3"></h1>
           {isError ? (

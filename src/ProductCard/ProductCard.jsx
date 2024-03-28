@@ -16,7 +16,9 @@ export function calculateDiscountPercentage(regularPrice, salePrice) {
    {/* {`/product/${item?._id}`} */}
       <div key={product.id}>
       <Link  to={`/product/${product?._id}`}>
-    <div className="w-100  p-2  overflow-hidden duration-300 cursor-pointer h-100  ">
+    <div className="w-100  p-2  mr-2  cursor-pointer
+    bg-white  overflow-hidden shadow duration-300  hover:shadow-lg 
+    ">
           <div className="">
             <img
               src={product.images_Src[0]}

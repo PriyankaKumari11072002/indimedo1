@@ -18,9 +18,25 @@ export default function SliderComponent({ title, api,style }) {
     autoplaySpeed: 500,
     responsive: [
       {
+        breakpoint: 2500,
+        settings: {
+          slidesToShow: 9,
+          // slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 1680,
+        settings: {
+          slidesToShow: 8,
+          // slidesToScroll: 1,
+          infinite: true,
+        },
+      },
+      {
         breakpoint: 1024,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 5,
           // slidesToScroll: 1,
           infinite: true,
         },
@@ -28,14 +44,14 @@ export default function SliderComponent({ title, api,style }) {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 4,
           // slidesToScroll: 1,
         },
       },
       {
         breakpoint: 480,
         settings: {
-          slidesToShow: 3,
+          slidesToShow: 2,
           // slidesToScroll: 3,
         },
       },
@@ -56,7 +72,7 @@ export default function SliderComponent({ title, api,style }) {
 `;
 
   return (
-    <div className="my-6   "  style={{width:"97%"}} >
+    <div className="my-6   "  style={{width:"100%"}} >
       <style>{slickPrevNextStyles}</style>
 
       <h1>{title}</h1>
