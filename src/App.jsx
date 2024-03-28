@@ -114,7 +114,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Loading from "./components/Loading/loading";
 import Header from "./components/header/header";
 import Navbar from "./components/navbar/Navbar";
-import Search from "./components/search/search";
+import Search1 from "./components/search/search";
 
 
 const ProductCard = React.lazy(() => import("./ProductCard/ProductCard"));
@@ -133,7 +133,7 @@ export default function App() {
       <div style={{ width: '100%' }}>
         <Header />
         <Navbar/>
-        <Search/>
+        <Search1/>
         </div>
     
     
@@ -144,7 +144,7 @@ export default function App() {
             <Route path="/product" element={<ProductCard />} />
             <Route path="/product/:id" element={<ProductCardDetails />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/search-results" element={<SearchResults />} />
+            <Route path="/search-results/:id" element={<SearchResults />} />
           </Routes>
         </Suspense>
       

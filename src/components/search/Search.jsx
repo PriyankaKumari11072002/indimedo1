@@ -88,7 +88,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { setSearchTerm1 ,setQueryResults } from "../../redux/features/searchSlice";
 import SearchResults from "./searchResults";
 import SliderComponent from "../slider/slider";
-const Search = () => {
+import SearchIcon from '@mui/icons-material/Search';
+import { styled, alpha } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import { IconButton, Paper } from "@mui/material";
+import {Search} from '@mui/icons-material'
+const Search1 = () => {
 
   const [suggestionTitleId, setsuggestionTitleId] = useState("");
 
@@ -118,8 +123,9 @@ const searchTermSelector = useSelector((state)=>state.search.searchTerm1)
   };
 
   const handleSubmit= () => {
-if(isError===false){
-  navigate(`/search-results`);
+if(searchTermSelector.trim() !== ""&& isError===false){ 
+  // navigate(`/search/${searchId}`)           //false===false query was not found
+  navigate(`/search-results/${searchTermSelector}`);
   dispatch(setSearchTerm1(""))
 
 }
@@ -130,7 +136,7 @@ if(isError===false){
   const handleClick = (item) => {  
   setsuggestionTitleId(item.title)
 
-  // navigate(`/product/${item._id}`);
+   navigate(`/product/${item._id}`);
 
   dispatch(setSearchTerm1(""))
   setsuggestionTitleId("")
@@ -138,10 +144,21 @@ if(isError===false){
 
 
   };
- 
+
+  const handleKeyPress = (e) => {
+if(e.key==='Enter'){
+  handleSubmit()
+}
+  }
 
   return (
     <>
+    <Paper component="form" onSubmit={handleSubmit}  sx={{borderRadius:20,border:"1px solid #e3e3e3",pl:2,boxShadow:"none",mr:{sm:5} }}>
+  <input type="text"  onChange={handleChange} placeholder='...find here anything' value={searchTermSelector} className='search-bar'/>
+  <IconButton type='submit' sx={{color:"red"}}><Search/></IconButton>
+</Paper>
+  
+
     <div className="search-container"  style={{height:'100%'}}>
  
     <div  className="input-container">
@@ -151,7 +168,7 @@ if(isError===false){
         onChange={handleChange}
         placeholder="Search Product"
         className="search-input  "
-    
+       onKeyPress={handleKeyPress}
      
       />
        <button onClick={handleSubmit} className="search-button"><IoSearchOutline /></button>
@@ -173,9 +190,9 @@ if(isError===false){
       </div>
     </div>
     
-   {/* <SearchResults/> */}
+  
     </>
   );
 };
 
-export default Search;
+export default Search1;

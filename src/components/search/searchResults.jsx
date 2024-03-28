@@ -1,5 +1,5 @@
 
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 import { calculateDiscountPercentage } from '../../ProductCard/ProductCard';
@@ -7,6 +7,9 @@ import { calculateDiscountPercentage } from '../../ProductCard/ProductCard';
 
 export default function SearchResults() {
   const searchResults = useSelector((state) => state.search.queryResults);
+  const searchId = useParams()
+
+
 //   console.log(searchResults[10].title,'searchResults')
   const searchTermSelector = useSelector((state) => state.search.searchTerm1);
 
@@ -18,9 +21,11 @@ export default function SearchResults() {
 
   return (
     <>
+   
    <div className="bg-white">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-[100%] lg:px-8  ">
         <div className="  mt-6 grid grid-cols-2 gap-x-4 gap-y-10 sm:grid-cols-3 md:grid-cols-4  lg:grid-cols-6 xl:gap-x-8 xl:grid-cols-7 2xl:grid-cols-8 ">
+          <h1>Search results for {searchId.id}</h1>
           {searchResults&&searchResults.length>0?searchResults.map((product) => (
             <Link  to={`/product/${product._id}`}>
             <div className="  rounded-lg bg-white  overflow-hidden shadow-lg duration-300  hover:shadow-lg ">
