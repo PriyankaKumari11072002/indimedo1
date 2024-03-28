@@ -128,6 +128,7 @@ export default function App() {
  
   return (
     <React.Fragment>
+
       <BrowserRouter>
       <div style={{ width: '100%', overflow: 'hidden' }}>
       <div style={{ width: '100%' }}>

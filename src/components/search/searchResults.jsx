@@ -1,14 +1,16 @@
 
 import { Link, useParams } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useState } from 'react';
 import { calculateDiscountPercentage } from '../../ProductCard/ProductCard';
+import { setSearchTerm1 ,setQueryResults } from "../../redux/features/searchSlice";
 
 
 export default function SearchResults() {
+
   const searchResults = useSelector((state) => state.search.queryResults);
   const searchId = useParams()
-
+  const dispatch = useDispatch()
 
 //   console.log(searchResults[10].title,'searchResults')
   const searchTermSelector = useSelector((state) => state.search.searchTerm1);
@@ -19,6 +21,13 @@ export default function SearchResults() {
     setExpanded(!expanded);
   };
 
+  useEffect(() => {
+    if (searchTermSelector.trim() !== "") {
+      searchProduct(searchTermSelector).then((response) => {
+        dispatch(setQueryResults(response.data || []))
+      });
+    } 
+  }, [searchTermSelector]);
   return (
     <>
    
