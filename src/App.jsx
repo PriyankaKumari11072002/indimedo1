@@ -26,12 +26,12 @@ export default function App() {
       <BrowserRouter>
       <div style={{ width: '100%', overflow: 'hidden' }}>
       <div style={{ width: '100%' }}>
-      {/* <Example/> */}
-        {/* <Header1 />
+      {/* <Example/>  */}
+        <Header1 />
         <Navbar/>
-        <Search1/> */}
+        <Search1/>
          <Header1 />
-        <Example1/>
+        {/* <Example1/> */}
         </div>
     
     
