@@ -15,7 +15,7 @@
 // borderRadius:"10px",
 //   boxShadow: 24,
 //   p: 10,
- 
+
 // };
 
 // export default function LoginModal({open,handleClose}) {
@@ -48,7 +48,7 @@
 //                     width="180"
 //                     height="200"
 //                   />
-//                 </div>  
+//                 </div>
 
 //                 <div>
 //                   <h1  style={{}}>Welcome to Indimedo website</h1>
@@ -58,7 +58,7 @@
 //                   </p>
 //                 </div>
 //      </div>
-     
+
 //                 <div>
 //                 <h1>Login</h1>
 //                   <p>
@@ -91,63 +91,74 @@
 //                         Privacy Policy pri
 //                       </p>
 //                     </Box>
-//                   </p>     
-//                     </div> 
-
+//                   </p>
+//                     </div>
 
 //     </div>
-                 
-//                 </Box> 
 
-                
+//                 </Box>
+
 //       </Modal>
 //     </Box>
 //   );
 // }
-import React from 'react'
-import {Box,TextField } from '@mui/material'
-import { Link } from 'react-router-dom'
-const Login = ({loginPage,signup ,verifyPage,setverifyPage,setSingUp}) => {
+import React from "react";
+import { Box, TextField } from "@mui/material";
+import { Link ,useNavigate} from "react-router-dom";
+const Login = ({ loginPage, signup, verifyPage, setverifyPage, setSingUp }) => {
+  const navigate = useNavigate('/signup')
+
+  const handleSignup = ()=>{
+    setSingUp(true)
+    navigate('/signup')
+  }
+
   return (
     <div>
-              {loginPage && !signup && !verifyPage && (
-                <div>
-                  <h1>Login</h1>
-                  <p>
-                    Sign up or Sign in to access your orders, special offers,
-                    health tips and more!
-                    <Box
-                      component="form"
-                      sx={{
-                        "& > :not(style)": { m: 1, width: "25ch" },
-                      }}
-                      noValidate
-                      autoComplete="off"
-                    >
-                      <TextField
-                        id="standard-basic"
-                        label="Enter Email Id or Mobile Number"
-                        variant="standard"
-                      />
-                      <button onClick={() => setverifyPage(true)} type="button">
-                        Continue
-                      </button>
-                      <p>
-                        New on Indimedo Website?{" "}
-                        <Link to="" onClick={() => setSingUp(true)}>
-                          Sign Up
-                        </Link>
-                      </p>
-                      <p>
-                        By signing In, you agree to our Terms and Conditions &
-                        Privacy Policy pri
-                      </p>
-                    </Box>
-                  </p>
-                </div>
-              )}
-    </div>
-  )
-}
+      {loginPage && !signup && !verifyPage && (
+        <div className="w-[100%]   px-3 py-1">
+          <h1 className="pb-2  text-black">Login</h1>
+          <p className="pb-2  text-gray-600">
+            Sign in to access your orders, special offers, health tips and more!
+            <Box
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
+              <TextField
+                sx={{ marginTop: "10px" }}
+                id="standard-basic"
+                label="Enter Email Id or Mobile Number"
+                variant="standard"
+              />
 
-export default Login
+
+              <button
+                onClick={() => setverifyPage(true)}
+                type="button"
+                className="w-[100%] bg-sky-500 p-2 text-black"
+              >
+                Continue
+              </button>
+              <p>
+                New on Indimedo Website?{" "}
+                </p>
+              <Link to="" onClick={() => handleSignup} className=" text-sky-500 mt-2 ">
+                  Sign Up
+                </Link>
+              <p>
+              By signing up, I agree to the Privacy Policy,Terms and Conditions of Indimedo Website.
+              </p>
+            </Box>
+          </p>
+        </div>
+      )}
+
+    </div>
+  );
+};
+
+export default Login;

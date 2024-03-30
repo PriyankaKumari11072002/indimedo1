@@ -11,6 +11,8 @@ import Loading from "./components/Common/Loading/loading";
 import Header1 from "./components/header/header1";
 import Example from "./components/trial/TrialHeaderLogics";
 import Example1 from "./components/trial/example";
+import Signup from "./screens/Signup/signup.jsx/Signup";
+import Login from "./screens/login/login";
 const ProductCard = React.lazy(() => import("./ProductCard/ProductCard"));
 const Home = React.lazy(() => import("./screens/home/Home"));
 const SearchResults = React.lazy(() => import("./components/search/searchResults"));
@@ -27,11 +29,12 @@ export default function App() {
       <div style={{ width: '100%', overflow: 'hidden' }}>
       <div style={{ width: '100%' }}>
       {/* <Example/>  */}
-        <Header1 />
+        {/* <Header1 />
         <Navbar/>
         <Search1/>
-         <Header1 />
-        {/* <Example1/> */}
+         <Header1 /> */}
+           <Header1 /> 
+        <Example1/>
         </div>
     
     
@@ -43,6 +46,8 @@ export default function App() {
             <Route path="/product/:id" element={<ProductCardDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/search-results/:id" element={<SearchResults />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </Suspense>
       

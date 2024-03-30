@@ -23,14 +23,30 @@ const Header1 = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false);
     const {count} = useSelector((state)=>state.cart) 
-
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isSignUp, setIsSignUp] = useState(true);
     const [loginPage, setloginPage] = useState(false);
     const [verifyPage, setverifyPage] = useState(false);
     const [signup, setsignup] = useState(false);
     
     const [getcartData,{data,isLoading,isError}] = useLazyGetCartQuery()
    
-    
+    const handleSignUpClick = () => {
+      setIsModalOpen(true);
+  
+      setIsSignUp(true);
+    };
+  
+    const handleLoginClick = () => {
+      setIsModalOpen(true);
+      setIsSignUp(false);
+    };
+    const handleClose = () => {
+      setIsModalOpen(false);
+    };
+    const handleClick = () => {
+      setIsModalOpen(false);
+    };
    useEffect(()=>{
       getcartData().then((data)=>dispatch(addProductToCart(data?.data?.products)))
    },[])
@@ -44,7 +60,7 @@ const Header1 = () => {
     }, [verifyPage, loginPage]);
 
     const handleOpen = () => setOpen(true)
-    const handleClose = () => setOpen(false);
+    // const handleClose = () => setOpen(false);
     const style = {
         position: 'absolute',
         top: '50%',
@@ -109,15 +125,16 @@ const Header1 = () => {
             <Link to="/upload-prescription" className="text-black font-semibold">
                 Upload
             </Link>
+
             <button onClick={handleOpen} className="text-black font-semibold  flex  justify-around items-center g-3">
                 <FaUser className="" />
-                Sign up/Sign in
+               <span onClick={handleSignUpClick}> Sign up/</span><span   onClick={handleLoginClick}> Sign in</span>
             </button>
         </div>
 
 
         <Modal
-open={open}
+open={isModalOpen}
 onClose={handleClose}
 aria-labelledby="modal-modal-title"
 aria-describedby="modal-modal-description"
@@ -141,22 +158,37 @@ aria-describedby="modal-modal-description"
 
             <div>
               <h1>Welcome to Indimedo website</h1>
-              <p>
-                Sign up with us get exclusive offers,discounts and savings
+              <p  className='w-[100%]'>
+                Sign up with us get exclusive offers,discounts
+                 and savings
                 on medicine ,get express delivery on same day
               </p>
             </div>
           </div>
 
-
-         <Signup signup={signup} memorizeLoginPage={memorizeLoginPage}/>
-
-         <Login  loginPage={loginPage}  signup={signup}  verifyPage={verifyPage}  setverifyPage={setverifyPage}  setsignup={setsignup}/>
+          <div>{isSignUp ? ( <><Signup signup={signup} loginPage={loginPage} memorizeLoginPage={memorizeLoginPage} 
+          verifyPage={verifyPage}  setverifyPage={setverifyPage}  setsignup={setsignup}/> <LoginOtpVerify  verifyPage={verifyPage}/></>): (<>
+            <Login  loginPage={loginPage}  signup={signup}  verifyPage={verifyPage}  setverifyPage={setverifyPage}  setsignup={setsignup}/>
          <LoginOtpVerify  verifyPage={verifyPage}/>
+          </>)}</div>
+        
+
+        
 
         </div>
 </Box>
 </Modal>
+
+{/* <Modal open={isModalOpen} onClose={handleClose}>
+        <Box sx={style}>
+          <div>
+            <h1 onClick={handleClick}>crossx</h1>
+            <h1>Modal</h1>
+
+            <div>{isSignUp ? "signup" : "login"}</div>
+          </div>
+        </Box>
+      </Modal> */}
     </div>
 </div>
 

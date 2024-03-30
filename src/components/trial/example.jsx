@@ -21,6 +21,10 @@ import { styled } from '@mui/material/styles';
 import {  useLazyGetCartQuery } from '../../services/apis/product';
 import { useDispatch, useSelector } from 'react-redux';
 import { addProductToCart } from '../../redux/features/cartSlice';
+import Signup from '../../screens/Signup/signup.jsx/Signup';
+import Login from '../../screens/login/login';
+import LoginOtpVerify from '../../screens/login/LoginOtpVerify';
+
 
 const navigation = {
 
@@ -433,7 +437,61 @@ export default function Example1() {
                     <span className="ml-3 block text-sm font-medium">Cart</span>
                     <span className="sr-only">, change currency</span>
                  </Link> 
-                </div>
+
+
+                 <Link to="" className="flex items-center text-gray-700 hover:text-gray-800"> 
+                 <FaUser className="ml-4"  />
+                 <span className="ml-1 block text-sm font-medium"  onClick={handleOpen}>Signup/Signin</span>
+                 </Link> 
+                 </div>
+                 <Modal
+open={open}
+onClose={handleClose}
+aria-labelledby="modal-modal-title"
+aria-describedby="modal-modal-description"
+>
+<Box sx={style}>
+
+
+<div
+          className="  flex justify-around items-center  "
+          style={{ padding: "10px 40px" }}
+        >
+          <div>
+            <div>
+              <img
+                src="https://www.netmeds.com/images/cms/wysiwyg/cms/1680000865_New_Dest_deal.png"
+                alt="sign-in banner"
+                width="180px"
+                height="200"
+              />
+            </div>
+
+            <div>
+              <h1>Welcome to Indimedo website</h1>
+              <p>
+                Sign up with us get exclusive offers,discounts and savings
+                on medicine ,get express delivery on same day
+              </p>
+            </div>
+          </div>
+
+
+         <Signup signup={signup} memorizeLoginPage={memorizeLoginPage}/>
+
+         <Login  loginPage={loginPage}  signup={signup}  verifyPage={verifyPage}  
+         setverifyPage={setverifyPage}  setsignup={setsignup}/>
+         
+         <LoginOtpVerify verifyPage={verifyPage}/>
+
+        </div>
+</Box>
+</Modal>            
+  
+                
+               
+              
+               
 
                 {/* Search */}
             

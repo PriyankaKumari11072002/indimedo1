@@ -6,9 +6,9 @@ const LoginOtpVerify = ({verifyPage}) => {
     <div>
         
         {verifyPage && (
-                <div>
-                  <h1>Enter OTP</h1>
-                  <p>Enter OTP We have sent an OTP on +91 8787689678</p>
+                <div  className="w-[110%]   px-3 py-1">
+                  <h1  className=' text-black'>Enter OTP</h1>
+                  <p  className=' text-gray-600 p-1'>Enter OTP We have sent an OTP on +91 8787689678</p>
 
                   <Box
                     component="form"
@@ -25,8 +25,8 @@ const LoginOtpVerify = ({verifyPage}) => {
                     />
                   </Box>
 
-                  <p>Get OTP on SMS | Get OTP on Call</p>
-                  <button>Done</button>
+                  <p  className=' text-gray-600 p-1'>Get OTP on SMS | Get OTP on Call</p>
+                  <button className="w-[100%] bg-sky-500 p-2 text-black  mt-16 rounded" >Done</button>
                 </div>
               )}
 
