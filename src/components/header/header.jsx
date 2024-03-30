@@ -21,40 +21,22 @@ import { addProductToCart } from '../../redux/features/cartSlice';
 const Header = () => {
     const dispatch = useDispatch()
     const [open, setOpen] = useState(false);
-    const {count} = useSelector((state)=>state.cart) //getting product from cart
-    // console.log(cart,'cart')
+    const {count} = useSelector((state)=>state.cart) 
+
     const [loginPage, setloginPage] = useState(false);
     const [verifyPage, setverifyPage] = useState(false);
-    const [singup, setSingUp] = useState(false);
+    const [signup, setsignup] = useState(false);
     
-    const [getcartData,{data,isLoading,isError}] = useLazyGetCartQuery()//lazy,mutation
-    
-    // const cartLength = data?.products.length
-
-    //adding product to cart
+    const [getcartData,{data,isLoading,isError}] = useLazyGetCartQuery()
+   
     
    useEffect(()=>{
       getcartData().then((data)=>dispatch(addProductToCart(data?.data?.products)))
    },[])
 
-
-    // const cartLength = data?.products.length
-
-    //adding product to cart
-
    useEffect(()=>{
       getcartData().then((data)=>dispatch(addProductToCart(data?.data?.products)))
    },[])
-
-
-
-
-    // useEffect(()=>{
-    //  if(data?.products?.length>0){
-    //     dispatch(addProductToCart(data?.products))
-    //  }
-    // },[isLoading])
-
 
     const memorizeLoginPage = useMemo(() => {
       setloginPage(true);
@@ -97,11 +79,14 @@ const Header = () => {
                 </Link>
         
             </div>
-            <div className="flex justify-around items-center gap-4 mr-4">
-                <Link to="/special-offers" className="text-black font-semibold  flex  justify-around items-center g-3">
+
+            <div className="flex justify-around items-center gap-3 mr-4  ">
+                <div   className="">
+                <Link to="/special-offers" className=" sm:text-black sm:font-semibold  sm:flex  Offers sm:justify-around sm:items-center sm:g-3">
                     <BiSolidOffer className="" />
                     Offers
                 </Link>
+                </div>
                 <button  className="text-black font-semibold flex  justify-around items-center g-3">
                     <Link  to="/cart">
                     <IconButton aria-label="cart">
@@ -121,6 +106,7 @@ const Header = () => {
                     Sign up/Sign in
                 </button>
             </div>
+
 
             <Modal
   open={open}
@@ -155,84 +141,14 @@ const Header = () => {
               </div>
 
 
-             <Signup signup={singup} memorizeLoginPage={memorizeLoginPage}/>
+             <Signup signup={signup} memorizeLoginPage={memorizeLoginPage}/>
 
-             <Login  loginPage={loginPage}  signup={singup}  verifyPage={verifyPage}  setverifyPage={setverifyPage}  setSingUp={setSingUp}/>
+             <Login  loginPage={loginPage}  signup={signup}  verifyPage={verifyPage}  setverifyPage={setverifyPage}  setsignup={setsignup}/>
              <LoginOtpVerify  verifyPage={verifyPage}/>
 
             </div>
   </Box>
 </Modal>
-            {/* <Modal
-                open={open}
-                onClose={handleClose}
-                aria-labelledby="modal-modal-title"
-                aria-describedby="modal-modal-description"
-            >
-                <Box
-                    sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        width: 400,
-                        bgcolor: 'background.paper',
-                        border: '2px solid #000',
-                        boxShadow: 24,
-                        p: 4,
-                    }}
-                >
-                    
-                   
-                    {loginPage && !signup && !verifyPage && (
-                        <div>
-                            <h1>Login</h1>
-                            <p>Sign up or Sign in to access your orders, special offers, health tips and more!</p>
-                            <Box
-                                component="form"
-                                sx={{
-                                    "& > :not(style)": { m: 1, width: "25ch" },
-                                }}
-                                noValidate
-                                autoComplete="off"
-                            >
-                                <TextField
-                                    id="standard-basic"
-                                    label="Enter Email Id or Mobile Number"
-                                    variant="standard"
-                                />
-                                <button onClick={handleVerifyPage} type="button">Continue</button>
-                                <p>New on Indimedo Website? <Link to="" onClick={handleSignup}>Sign Up</Link></p>
-                                <p>By signing In, you agree to our Terms and Conditions & Privacy Policy pri</p>
-                            </Box>
-                        </div>
-                    )}
-
-                    {verifyPage && (
-                        <div>
-                            <h1>Enter OTP</h1>
-                            <p>Enter OTP We have sent an OTP on +91 8787689678</p>
-                            <Box
-                                component="form"
-                                sx={{
-                                    "& > :not(style)": { m: 1, width: "25ch" },
-                                }}
-                                noValidate
-                                autoComplete="off"
-                            >
-                                <TextField
-                                    id="standard-basic"
-                                    label="One Time Password"
-                                    variant="standard"
-                                />
-                            </Box>
-                            <p>Get OTP on SMS | Get OTP on Call</p>
-                            <button>Done</button>
-                        </div>
-                    )}
-                </Box>
-            </Modal> */}
-
         </div>
     );
 };

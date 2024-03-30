@@ -8,6 +8,9 @@ import Header from "./components/header/header";
 import Navbar from "./components/navbar/Navbar";
 import Search1 from "./components/search/search";
 import Loading from "./components/Common/Loading/loading";
+import Header1 from "./components/header/header1";
+import Example from "./components/trial/TrialHeaderLogics";
+import Example1 from "./components/trial/example";
 const ProductCard = React.lazy(() => import("./ProductCard/ProductCard"));
 const Home = React.lazy(() => import("./screens/home/Home"));
 const SearchResults = React.lazy(() => import("./components/search/searchResults"));
@@ -23,10 +26,12 @@ export default function App() {
       <BrowserRouter>
       <div style={{ width: '100%', overflow: 'hidden' }}>
       <div style={{ width: '100%' }}>
-      
-        <Header />
+      {/* <Example/> */}
+        {/* <Header1 />
         <Navbar/>
-        <Search1/>
+        <Search1/> */}
+         <Header1 />
+        <Example1/>
         </div>
     
     

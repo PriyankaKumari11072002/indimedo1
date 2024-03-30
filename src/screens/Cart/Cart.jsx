@@ -15,7 +15,7 @@ import Header from "../../components/header/header";
 function Cart() {
   const { cart } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
-  console.log(cart, "cartlogics");
+  console.log(cart, "getting cart or not");
 
 
 

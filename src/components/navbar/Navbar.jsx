@@ -123,7 +123,7 @@ export default function Navbar() {
   const navItems = ["Login", "Register"];
 
   return (
-    <Box sx={{ flexGrow: 1 }}   className="flex align-middle justify-around  gap-6  font-serif  ">
+    <Box sx={{ flexGrow: 1 }}   className="flex align-middle justify-around  gap-6  font-serif  mt-2">
       {/* <AppBar position="fixed">
         <Toolbar>
           <img

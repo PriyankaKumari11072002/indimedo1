@@ -87,7 +87,7 @@ console.log(showSearchMessage,'showmESS')
 </Paper>
    */}
 
-    <div className="search-container"  style={{height:'100%'}}>
+    <div className=" search-container"  style={{height:'100%'}}>
  
     <div  className="input-container">
       <input

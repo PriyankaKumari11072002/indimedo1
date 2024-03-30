@@ -1,12 +1,17 @@
 .search-container {
   position: relative;
   width: 50%;
-  margin-left: 200px;
+  margin-left: 280px;
   margin-top: 40px;
+ 
 }
 
 .input-container {
+
   display: flex;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
 }
 
 .search-button {
